@@ -1,0 +1,14 @@
+<section>
+    <div class="playableArea">
+        <div class="cardStack">
+
+            <img [ngStyle]="{'right.px': i * 5}" *ngFor="let c of [0,1,2,3]; let i = index;"
+                src="./../../assets/img/cards/card_cover.png">
+
+            <img (click)="takeCard()" class="topCard" src="./../../assets/img/cards/card_cover.png">
+
+            <img *ngIf="pickCardAnimation" class="pickCard" src="./../../assets/img/cards/ace_13.png">
+
+        </div>
+    </div>
+</section>

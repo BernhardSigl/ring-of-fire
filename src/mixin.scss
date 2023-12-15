@@ -1,0 +1,38 @@
+@mixin middle() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin column($g: 0px) {
+    display: flex;
+    flex-direction: column;
+    gap: $g;
+}
+
+@mixin monitorSize($vw: 100vw, $vh: 100vh) {
+    width: $vw;
+    height: $vh;
+}
+
+@mixin fs($fs) {
+    font-size: $fs;
+    cursor: default;
+}
+
+@mixin linkAsBtn($pVertical, $pHoricontal, $backColor, $borderColor) {
+    border: 3px solid $borderColor;
+    border-radius: 8px;
+    background-color: $backColor;
+    padding: $pVertical $pHoricontal;
+    cursor: pointer !important;
+}
+
+@mixin button($pVertical, $pHoricontal, $backColor, $borderColor) {
+    border: 3px solid $borderColor;
+    border-radius: 8px;
+    background-color: $backColor;
+    padding: $pVertical $pHoricontal;
+    cursor: pointer !important;
+
+}

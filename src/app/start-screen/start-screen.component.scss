@@ -1,0 +1,33 @@
+@import './../../mixin.scss';
+
+section {
+    @include monitorSize();
+    @include middle();
+    background-color: black;
+
+    .playableArea {
+        @include middle();
+        @include column($g: 20px);
+    }
+
+    img {
+        width: 80%;
+    }
+
+    .title {
+        color: white;
+        font-size: 80px;
+        @include fs(80px);
+    }
+}
+
+.startBtn {
+    width: auto;
+    height: auto;
+    @include fs($fs: 80px);
+    @include linkAsBtn($pVertical: 12px, $pHoricontal: 24px, $backColor: yellow, $borderColor: white);
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
