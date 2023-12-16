@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common'
-import { Game } from './../../models/game';
+// import { Game } from './../../models/game';
 
 @Component({
   selector: 'app-player',
@@ -15,10 +15,10 @@ export class PlayerComponent {
   @Input() name!: string;
   @Input() i!: number;
   @Input() playerActive: boolean = false;
-  game: Game;
+  // game: Game;
 
-  constructor() {
-    this.game = new Game();
-  }
+  // constructor() {
+  //   this.game = new Game();
+  // }
 
 }
