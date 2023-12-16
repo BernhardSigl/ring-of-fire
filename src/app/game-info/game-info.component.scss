@@ -15,3 +15,21 @@ mat-card {
         @include fs($fs: 20px);
     }
 }
+
+@media(max-height: 1000px) or (max-width: 1000px) {
+    mat-card {
+        bottom: 40px;
+        left: 15px;
+        right: 25px;
+
+        mat-card-title {
+            padding: 8px 8px 0;
+            @include fs($fs: 16px);
+        }
+
+        mat-card-content {
+            padding: 0 8px 8px;
+            @include fs($fs: 14px);
+        }
+    }
+}

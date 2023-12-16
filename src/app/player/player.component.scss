@@ -73,3 +73,54 @@ section {
         transform: rotate(-2deg);
     }
 }
+
+@media(max-height: 1000px) or (max-width: 1000px) {
+    .playableArea {
+        margin: 0 50px 70px 0;
+        z-index: 1;
+    }
+
+    .btnAdd {
+        margin-left: 36px !important;
+        margin-right: 45px !important;
+        background-color: black !important;
+    }
+
+    span {
+        color: white;
+        @include fs($fs: 12px);
+        height: 40px;
+        @include middle();
+    }
+
+    .btnAdd {
+        width: 26px;
+        height: 26px;
+        margin-left: 14px !important;
+        margin-right: 14px !important;
+    }
+
+    section {
+        width: 150px !important;
+        height: 34px !important;
+        border-radius: 0 17px 17px 0 !important;
+
+        .player[_ngcontent-ng-c1737856312] {
+            margin-bottom: 0 !important;
+            margin-left: -26px;
+            gap: 5px;
+
+            img {
+                height: 60px !important;
+                margin-bottom: 32px !important;
+            }
+
+            span {
+                width: 60px;
+                @include fs($fs: 12px);
+                height: 40px;
+            }
+        }
+
+    }
+}

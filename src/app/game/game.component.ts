@@ -32,7 +32,9 @@ export class GameComponent {
   }
 
   takeCard() {
-    if (!this.pickCardAnimation) {
+    if (this.game.players.length == 0) {
+      this.openDialog();
+    } else if (!this.pickCardAnimation) {
       this.currentCard = this.game.stack.pop()!;
       this.pickCardAnimation = true;
 

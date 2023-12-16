@@ -3,14 +3,24 @@ body {
     caret-color: transparent;
 }
 
-.playableArea {
-    width: 100%;
-    max-width: 1920px;
-}
+// .playableArea {
+//     width: 100%;
+//     max-width: 1920px;
+// }
 
 a {
     text-decoration: none;
     color: black;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 html,

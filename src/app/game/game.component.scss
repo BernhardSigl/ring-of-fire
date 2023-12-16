@@ -2,6 +2,7 @@
 
 section {
     @include monitorSize();
+
     background-image: url('./../../assets/img/wood.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -66,6 +67,7 @@ section {
 app-player {
     position: absolute;
     right: 0;
+    top: calc(260px + var(--i, 0) * 170px);
 }
 
 .btnContainter {
@@ -92,4 +94,52 @@ app-player {
         height: 40px;
         @include middle();
     }
+}
+
+@media(max-height: 1000px) or (max-width: 1000px) {
+    .playableArea {
+        margin: 108px 50px 70px 0;
+        z-index: 1;
+    }
+
+    .btnContainter {
+        left: 0;
+        top: 10px;
+        width: 150px;
+        height: 34px;
+        border-radius: 0 17px 17px 0;
+
+        .btnAdd {
+            margin-left: 36px !important;
+            margin-right: 45px !important;
+            background-color: black !important;
+        }
+
+        span {
+            color: white;
+            @include fs($fs: 12px);
+            height: 40px;
+            @include middle();
+        }
+
+        .btnAdd {
+            width: 26px;
+            height: 26px;
+            margin-left: 14px !important;
+            margin-right: 14px !important;
+        }
+    }
+
+    app-player {
+        left: 0;
+        top: calc(70px + var(--i, 0) * 56px);
+    }
+
+    .cardStack {
+        img {
+            width: 90px;
+        }
+    }
+
+
 }
