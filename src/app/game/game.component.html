@@ -29,4 +29,4 @@
     <span>Add player</span>
 </div>
 
-<app-game-info></app-game-info>
+<app-game-info [card]="currentCard" *ngIf="currentCard !== ''"></app-game-info>

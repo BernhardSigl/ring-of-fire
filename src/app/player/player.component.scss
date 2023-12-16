@@ -40,9 +40,36 @@ section {
 }
 
 .player-active {
+    box-shadow: 0 0 7px 0px gold;
+
     img {
         height: 170px !important;
         margin-bottom: 75px !important;
         z-index: 1 !important;
+        animation: wiggle 1s ease-in-out;
+    }
+
+    span {
+        font-weight: bold;
+    }
+}
+
+@keyframes wiggle {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-2deg);
+    }
+
+    50% {
+        transform: rotate(2deg);
+    }
+
+    75% {
+        transform: rotate(-2deg);
     }
 }

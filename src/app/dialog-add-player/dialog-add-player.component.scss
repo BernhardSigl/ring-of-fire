@@ -1,3 +1,7 @@
-.mat-mdc-dialog-actions {
-    justify-content: end;
+section {
+    border: solid 2px silver;
+
+    .mat-mdc-dialog-actions {
+        justify-content: end;
+    }
 }

@@ -5,28 +5,41 @@ section {
     @include middle();
     background-color: black;
     background-image: url('./../../assets/img/startscreen.png');
-    // background-image: url('./../../assets/img/startingscreenalternative.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
-    .playableArea {
-        @include middle();
-        @include column($g: 20px);
-    }
-
-    img {
-        width: 80%;
-    }
 }
 
-.startBtn {
-    width: auto;
-    height: auto;
-    @include fs($fs: 80px);
-    @include linkAsBtn($pVertical: 12px, $pHoricontal: 24px, $backColor: yellow, $borderColor: white);
+.playableArea {
+    @include middle();
+    // @include column($g: 20px);
 
-    &:hover {
-        transform: scale(1.2);
+    img {
+        width: 300px;
+        height: 300px;
+    }
+
+    .startBtn {
+        width: auto;
+        height: auto;
+        margin-top: 46px;
+        padding: 6px 46px !important;
+        font-size: 24px;
+        cursor: default;
+        border: 3px solid black;
+        border-radius: 8px;
+        background-color: black;
+        padding: 12px 24px;
+        cursor: pointer !important;
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        &:hover {
+            @include linkAsBtn($pVertical: 12px, $pHoricontal: 24px,
+                $backColor: #2A2A34, $borderColor: #2A2A34);
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { Game } from './../../models/game';
 import { PlayerComponent } from './../player/player.component';
@@ -22,22 +22,13 @@ import { GameInfoComponent } from './../game-info/game-info.component';
   styleUrl: './game.component.scss'
 })
 
-export class GameComponent implements OnInit {
+export class GameComponent {
   pickCardAnimation = false;
   currentCard: string = '';
   game: Game;
 
   constructor(public dialog: MatDialog) {
     this.game = new Game();
-    console.log('test:', this.game);
-  }
-
-  ngOnInit(): void {
-    this.newGame();
-  }
-
-  newGame() {
-    // this.game = new Game();
   }
 
   takeCard() {
@@ -45,12 +36,12 @@ export class GameComponent implements OnInit {
       this.currentCard = this.game.stack.pop()!;
       this.pickCardAnimation = true;
 
+      this.game.currentPlayer++;
+      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
       setTimeout(() => {
         this.game.playedCards.push(this.currentCard);
         this.pickCardAnimation = false;
       }, 1000);
-
-      console.log('new card:', this.currentCard + ' & collected cards:', this.game.playedCards);
     }
   }
 
@@ -58,7 +49,9 @@ export class GameComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
     dialogRef.afterClosed().subscribe((name: string) => {
-      this.game.players.push(name);
+      if (name && name.length > 0) {
+        this.game.players.push(name);
+      }
     });
   }
 
