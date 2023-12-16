@@ -4,7 +4,7 @@ section {
     @include monitorSize();
     @include middle();
     background-color: black;
-    background-image: url('./../../assets/img/startscreen.png');
+    background-image: url('./../../assets/img/startscreen.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -12,7 +12,6 @@ section {
 
 .playableArea {
     @include middle();
-    // @include column($g: 20px);
 
     img {
         width: 300px;
@@ -22,10 +21,9 @@ section {
     .startBtn {
         width: auto;
         height: auto;
-        margin-top: 46px;
+        margin-top: 46px !important;
         padding: 6px 46px !important;
         font-size: 24px;
-        cursor: default;
         border: 3px solid black;
         border-radius: 8px;
         background-color: black;

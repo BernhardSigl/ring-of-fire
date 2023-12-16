@@ -81,8 +81,8 @@ app-player {
     @include start();
 
     .btnAdd {
-        margin-left: 36px;
-        margin-right: 45px;
+        margin-left: 36px !important;
+        margin-right: 45px !important;
         background-color: black !important;
     }
 
