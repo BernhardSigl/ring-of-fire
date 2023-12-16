@@ -4,6 +4,11 @@ section {
     @include monitorSize();
     @include middle();
     background-color: black;
+    background-image: url('./../../assets/img/startscreen.png');
+    // background-image: url('./../../assets/img/startingscreenalternative.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     .playableArea {
         @include middle();
@@ -12,12 +17,6 @@ section {
 
     img {
         width: 80%;
-    }
-
-    .title {
-        color: white;
-        font-size: 80px;
-        @include fs(80px);
     }
 }
 

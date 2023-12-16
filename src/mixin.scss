@@ -4,6 +4,24 @@
     align-items: center;
 }
 
+@mixin row($g: 0px) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $g;
+}
+
+@mixin horicontal() {
+    display: flex;
+    justify-content: center;
+}
+
+@mixin start() {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
 @mixin column($g: 0px) {
     display: flex;
     flex-direction: column;
@@ -34,5 +52,4 @@
     background-color: $backColor;
     padding: $pVertical $pHoricontal;
     cursor: pointer !important;
-
 }
