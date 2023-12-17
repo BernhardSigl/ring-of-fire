@@ -27,14 +27,31 @@ export class GameComponent {
   currentCard: string = '';
   game: Game;
 
+  baseHref = '/angular-projects/ring-of-fire/';
+  scream_sound_Alex = new Audio(`./../../${this.baseHref}assets/audio/alexViking.mp3`);
+  scream_sound_Marko = new Audio(`./../../${this.baseHref}assets/audio/markoViking.mp3`);
+
   constructor(public dialog: MatDialog) {
     this.game = new Game();
   }
 
   takeCard() {
+    let indexOfAlex = this.game.players.indexOf('Alex');
+    let indexOfMarko = this.game.players.indexOf('Marko');
+    if (indexOfAlex == 0) {
+      indexOfAlex = this.game.players.length;
+    } else if (indexOfMarko == 0) {
+      indexOfMarko = this.game.players.length;
+    }
     if (this.game.players.length == 0) {
       this.openDialog();
     } else if (!this.pickCardAnimation) {
+      if (indexOfAlex - 1 == this.game.currentPlayer) {
+        this.scream_sound_Alex.play();
+      }
+      if (indexOfMarko - 1 == this.game.currentPlayer) {
+        this.scream_sound_Marko.play();
+      }
       this.currentCard = this.game.stack.pop()!;
       this.pickCardAnimation = true;
 
@@ -56,5 +73,4 @@ export class GameComponent {
       }
     });
   }
-
 }

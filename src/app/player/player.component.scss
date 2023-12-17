@@ -40,7 +40,7 @@ section {
 }
 
 .player-active {
-    box-shadow: 0 0 7px 0px gold;
+    box-shadow: 0 0 8px 2px red;
 
     img {
         height: 170px !important;
@@ -62,15 +62,15 @@ section {
     }
 
     25% {
-        transform: rotate(-2deg);
+        transform: rotate(-3deg);
     }
 
     50% {
-        transform: rotate(2deg);
+        transform: rotate(3deg);
     }
 
     75% {
-        transform: rotate(-2deg);
+        transform: rotate(-3deg);
     }
 }
 
