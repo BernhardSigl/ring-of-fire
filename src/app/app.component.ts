@@ -18,5 +18,5 @@ import { GameComponent } from './game/game.component';
 })
 
 export class AppComponent {
-  title = 'ringOfFire';
+  title = 'ring-of-fire';
 }

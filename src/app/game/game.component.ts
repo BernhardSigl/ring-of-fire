@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { Game } from './../../models/game';
 import { PlayerComponent } from './../player/player.component';
@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from './../dialog-add-player/dialog-add-player.component';
 import { GameInfoComponent } from './../game-info/game-info.component';
+import { Firestore, collection, addDoc, onSnapshot } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -22,36 +25,76 @@ import { GameInfoComponent } from './../game-info/game-info.component';
   styleUrl: './game.component.scss'
 })
 
-export class GameComponent {
+export class GameComponent implements OnInit {
   pickCardAnimation = false;
   currentCard: string = '';
-  game: Game;
+  game!: Game;
+  item: any;
 
-  baseHref = '/angular-projects/ring-of-fire/';
-  scream_sound_Alex = new Audio(`./../../${this.baseHref}assets/audio/alexViking.mp3`);
-  scream_sound_Marko = new Audio(`./../../${this.baseHref}assets/audio/markoViking.mp3`);
+  // new:
+  firestore: Firestore = inject(Firestore);
+  currentParams: any; // obj??
 
-  constructor(public dialog: MatDialog) {
-    this.game = new Game();
+  constructor(private route: ActivatedRoute, public dialog: MatDialog) { }
+
+  ngOnInit(): void {
+    // this.addGame();
+
+    this.route.params.subscribe((params) => {
+      this.currentParams = params['id'];
+      this.subGameList();
+    })
+  }
+
+  // new:
+  async addGame() {
+    const docRef = await addDoc(collection(this.getGamesRef(), "cities"), {
+      name: "Tokyo",
+      country: "Japan"
+    });
+    console.log("Document written with ID: ", docRef.id);
+  }
+
+  ngOnDestroy() {
+    // this.unsubGameList();
+  }
+
+
+
+  // new:
+  subGameList() {
+    return onSnapshot(this.getGamesRef(), (list) => {
+      list.forEach(element => {
+        if (element.id == this.currentParams) {
+          console.log('game update: ', this.game);
+          console.log('element.id', element.id + ' & currentParams', this.currentParams);
+
+          this.game.currentPlayer = element.data()['currentPlayer'];
+          this.game.playedCards = element.data()['playedCards'];
+          this.game.players = element.data()['players'];
+          this.game.stack = element.data()['stack'];
+        }
+      });
+    });
+  }
+
+  setGameObj(obj: any) {
+    return {
+      currentPlayer: obj?.currentPlayer || "",
+      playedCards: obj?.playedCards || "",
+      players: obj?.players || "",
+      stack: obj?.stack || "",
+    }
+  }
+
+  getGamesRef() {
+    return collection(this.firestore, 'games');
   }
 
   takeCard() {
-    let indexOfAlex = this.game.players.indexOf('Alex');
-    let indexOfMarko = this.game.players.indexOf('Marko');
-    if (indexOfAlex == 0) {
-      indexOfAlex = this.game.players.length;
-    } else if (indexOfMarko == 0) {
-      indexOfMarko = this.game.players.length;
-    }
     if (this.game.players.length == 0) {
       this.openDialog();
     } else if (!this.pickCardAnimation) {
-      if (indexOfAlex - 1 == this.game.currentPlayer) {
-        this.scream_sound_Alex.play();
-      }
-      if (indexOfMarko - 1 == this.game.currentPlayer) {
-        this.scream_sound_Marko.play();
-      }
       this.currentCard = this.game.stack.pop()!;
       this.pickCardAnimation = true;
 

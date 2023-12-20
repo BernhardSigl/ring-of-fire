@@ -15,54 +15,57 @@ import { MatCardModule } from '@angular/material/card';
 export class GameInfoComponent implements OnInit, OnChanges {
   cardAction = [
     {
-      title: 'Waterfall',
-      description: 'Everyone begins drinking at the same time, and no one can stop until the person to their right stops.'
+      title: "Wasserfall",
+      description: "Alle beginnen gleichzeitig zu trinken, und niemand kann aufhören, bis die Person rechts von ihnen aufhört."
     },
     {
-      title: 'Thumb Master',
-      description: 'You are the Thumb Master. Whenever you put your thumb on the table, everyone must follow. The last person to do so drinks.'
+      title: "Thumb Master",
+      description: "Du bist der Daumen-Meister. Jedes Mal, wenn du deinen Daumen auf den Tisch legst, müssen alle folgen. Die letzte Person, die es tut, trinkt."
     },
     {
-      title: 'Rule Master',
-      description: 'You become the Rule Master. Create a rule that everyone must follow until the next Rule Master is chosen. Breaking the rule results in drinking.'
+      title: "Rule Master",
+      description: "Du wirst der Regel-Meister. Erstelle eine Regel, der alle folgen müssen, bis der nächste Regel-Meister gewählt wird. Das Brechen der Regel führt zu einem Schluck."
     },
     {
-      title: 'Categories',
-      description: `Choose a category (e.g., movies, animals). Players must go around and say something from that category. The first person who can't think of something drinks.`
+      title: "Kategorien",
+      description: "Wähle eine Kategorie (z. B. Filme, Tiere). Die Spieler müssen reihum etwas aus dieser Kategorie sagen. Die erste Person, die sich nichts ausdenken kann, trinkt."
     },
     {
-      title: 'Rhyme Time',
-      description: `You say a word, and the person to your right must say a word that rhymes. This continues around the circle, and the first person who can't think of a rhyme drinks.`
+      title: "Reimzeit",
+      description: "Du sagst ein Wort, und die Person rechts von dir muss ein Wort sagen, das sich reimt. Dies geht im Kreis weiter, und die erste Person, die sich keinen Reim einfallen lässt, trinkt."
     },
     {
-      title: 'Never Have I Ever',
-      description: `Everyone puts up three fingers. Take turns saying something you've never done. If someone has done it, they put a finger down. The first person with no fingers up drinks.`
+      title: "Ich habe noch nie",
+      description: "Jeder hebt drei Finger. Jeder sagt abwechselnd etwas, das er noch nie getan hat. Wenn jemand es getan hat, senkt er einen Finger. Die erste Person ohne Finger trinkt."
     },
     {
-      title: 'Make a Rule',
-      description: 'You get to make a rule that lasts until the end of the game. Anyone who breaks the rule drinks.'
+      title: "Stelle eine Regel auf",
+      description: "Du darfst eine Regel aufstellen, die bis zum Ende des Spiels gilt. Jeder, der die Regel bricht, trinkt."
     },
     {
-      title: 'Two Truths and a Lie',
-      description: 'Say two true statements and one false statement. The group votes on which statement is the lie. If you are caught in a lie, you drink.'
+      title: "Zwei Wahrheiten und eine Lüge",
+      description: "Sage zwei wahre Aussagen und eine falsche Aussage. Die Gruppe stimmt darüber ab, welche Aussage die Lüge ist. Wenn du bei einer Lüge erwischt wirst, trinkst du."
     },
     {
-      title: 'Questions Only',
-      description: 'Players must communicate by asking each other questions. The first person to respond with a statement drinks.'
-    },
-    { title: 'Moose', description: 'Whenever you see someone put both hands on their head like moose antlers, you must do the same. The last person to do so drinks.' },
-    {
-      title: `King's Cup`,
-      description: `Pour a small amount of your drink into a "King's Cup" in the center. The person who draws the last king card must drink the contents of the King's Cup.`
+      title: "Nur Fragen",
+      description: "Die Spieler müssen sich durch Fragen miteinander verständigen. Die erste Person, die mit einer Aussage antwortet, trinkt."
     },
     {
-      title: 'Social',
-      description: 'Everyone drinks together. Cheers!'
+      title: "Elch",
+      description: "Immer wenn du jemanden siehst, der beide Hände wie Elchgeweihe auf den Kopf legt, musst du dasselbe tun. Die letzte Person, die es tut, trinkt."
     },
     {
-      title: 'Dance Off',
-      description: 'Start a dance-off. The two worst dancers drink.'
+      title: "Königsbecher",
+      description: "Gieße eine kleine Menge deines Getränks in einen 'Königsbecher' in der Mitte. Die Person, die die letzte Karte mit dem König zieht, muss den Inhalt des Königsbechers trinken."
     },
+    {
+      title: "Gemeinschaftstrinken",
+      description: "Alle trinken zusammen. Prost!"
+    },
+    {
+      title: "Tanzwettbewerb",
+      description: "Starte einen Tanzwettbewerb. Die beiden schlechtesten Tänzer trinken."
+    }
   ]
 
   title = '';

@@ -1,0 +1,11 @@
+{
+  "hosting": [
+    {
+      "target": "ring-of-fire",
+      "source": ".",
+      "frameworksBackend": {
+        "region": "europe-west1"
+      }
+    }
+  ]
+}
