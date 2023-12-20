@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { Game } from './../../models/game';
 import { PlayerComponent } from './../player/player.component';
@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from './../dialog-add-player/dialog-add-player.component';
 import { GameInfoComponent } from './../game-info/game-info.component';
-import { Firestore, collection, addDoc, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, onSnapshot, query, getDocs, doc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -25,70 +25,67 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './game.component.scss'
 })
 
-export class GameComponent implements OnInit {
+export class GameComponent {
   pickCardAnimation = false;
   currentCard: string = '';
   game!: Game;
-  item: any;
+  normalGame: Game[] = [];
 
-  // new:
   firestore: Firestore = inject(Firestore);
-  currentParams: any; // obj??
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog) { }
 
+  // #1
   ngOnInit(): void {
-    // this.addGame();
-
+    this.newGame();
     this.route.params.subscribe((params) => {
-      this.currentParams = params['id'];
-      this.subGameList();
+      console.log('params.id', params['id']);
+      this.subGamesRef();
+      this.getSingleDocRef(params['id']);
     })
   }
 
-  // new:
+  // #2
+  newGame() {
+    this.game = new Game();
+    // this.addGame(); // ausblenden zum testen
+  }
+
+  // #3
+  // add game json to fs
   async addGame() {
-    const docRef = await addDoc(collection(this.getGamesRef(), "cities"), {
-      name: "Tokyo",
-      country: "Japan"
-    });
-    console.log("Document written with ID: ", docRef.id);
+    await addDoc(this.getGamesRef(), this.game.toJson());
   }
 
-  ngOnDestroy() {
-    // this.unsubGameList();
-  }
-
-
-
-  // new:
-  subGameList() {
-    return onSnapshot(this.getGamesRef(), (list) => {
-      list.forEach(element => {
-        if (element.id == this.currentParams) {
-          console.log('game update: ', this.game);
-          console.log('element.id', element.id + ' & currentParams', this.currentParams);
-
-          this.game.currentPlayer = element.data()['currentPlayer'];
-          this.game.playedCards = element.data()['playedCards'];
-          this.game.players = element.data()['players'];
-          this.game.stack = element.data()['stack'];
-        }
+  // #4
+  // änderungen von fs auf website übertragen
+  async subGamesRef() {
+    const q = query(this.getGamesRef());
+    return onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach(element => {
+        console.log('game update', element.data());
+        // console.log(element.id);
+        this.game.currentPlayer = element.data()['currentPlayer'];
+        this.game.playedCards = element.data()['playedCards'];
+        this.game.players = element.data()['players'];
+        this.game.stack = element.data()['stack'];
       });
     });
   }
 
-  setGameObj(obj: any) {
-    return {
-      currentPlayer: obj?.currentPlayer || "",
-      playedCards: obj?.playedCards || "",
-      players: obj?.players || "",
-      stack: obj?.stack || "",
-    }
+  // #5
+  getGamesRef() {
+    // firebase verbindung
+    return collection(this.firestore, 'games');
   }
 
-  getGamesRef() {
-    return collection(this.firestore, 'games');
+  // #6
+  // spezifische url
+  getSingleDocRef(docId: string) {
+    return doc((this.getGamesRef()), docId);
+  }
+
+  ngOnDestroy() {
   }
 
   takeCard() {
