@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from './../dialog-add-player/dialog-add-player.component';
 import { GameInfoComponent } from './../game-info/game-info.component';
-import { Firestore, collection, addDoc, onSnapshot, query, getDocs, doc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, onSnapshot, query, getDocs, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -26,10 +26,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class GameComponent {
-  pickCardAnimation = false;
-  currentCard: string = '';
+  // pickCardAnimation = false; 
+  // currentCard: string = ''; werden beide verschoben damit synchron mit mitspieler
   game!: Game;
   normalGame: Game[] = [];
+  gameId!: string;
 
   firestore: Firestore = inject(Firestore);
 
@@ -39,13 +40,14 @@ export class GameComponent {
   ngOnInit(): void {
     this.newGame();
     this.route.params.subscribe((params) => {
-      console.log('params.id', params['id']);
+      this.gameId = params['id'];
+      console.log('params.id', this.gameId);
       this.subGamesRef();
-      this.getSingleDocRef(params['id']);
+      this.getSingleDocRef(this.gameId);
     })
   }
 
-  // #2
+  // #2 wird nicht mehr benötigt, da auf start screen btn eingefügt
   newGame() {
     this.game = new Game();
     // this.addGame(); // ausblenden zum testen
@@ -69,6 +71,8 @@ export class GameComponent {
         this.game.playedCards = element.data()['playedCards'];
         this.game.players = element.data()['players'];
         this.game.stack = element.data()['stack'];
+        this.game.pickCardAnimation = element.data()['pickCardAnimation'];
+        this.game.currentCard = element.data()['currentCard'];
       });
     });
   }
@@ -85,21 +89,28 @@ export class GameComponent {
     return doc((this.getGamesRef()), docId);
   }
 
+  // #7
+  async saveGame() {
+    let docRef = this.getSingleDocRef(this.gameId);
+    await updateDoc(docRef, this.game.toJson());
+  }
+
   ngOnDestroy() {
   }
 
   takeCard() {
     if (this.game.players.length == 0) {
       this.openDialog();
-    } else if (!this.pickCardAnimation) {
-      this.currentCard = this.game.stack.pop()!;
-      this.pickCardAnimation = true;
-
+    } else if (!this.game.pickCardAnimation) {
+      this.game.currentCard = this.game.stack.pop()!;
+      this.game.pickCardAnimation = true;
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+      this.saveGame();
       setTimeout(() => {
-        this.game.playedCards.push(this.currentCard);
-        this.pickCardAnimation = false;
+        this.game.playedCards.push(this.game.currentCard);
+        this.game.pickCardAnimation = false;
+        this.saveGame();
       }, 1000);
     }
   }
@@ -110,6 +121,7 @@ export class GameComponent {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
+        this.saveGame();
       }
     });
   }

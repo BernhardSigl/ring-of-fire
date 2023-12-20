@@ -16,7 +16,7 @@
             <img *ngFor="let card of game.playedCards" src="./assets/img/cards/{{ card }}.png" class="playedCard">
 
             <!-- current card with animation -->
-            <img *ngIf="pickCardAnimation" class="pickCard" src="./assets/img/cards/{{ currentCard }}.png">
+            <img *ngIf="game.pickCardAnimation" class="pickCard" src="./assets/img/cards/{{ game.currentCard }}.png">
 
         </div>
     </div>
@@ -29,4 +29,4 @@
     <span>Add player</span>
 </div>
 
-<app-game-info [card]="currentCard" *ngIf="currentCard !== ''"></app-game-info>
+<app-game-info [card]="game.currentCard" *ngIf="game.currentCard !== ''"></app-game-info>
