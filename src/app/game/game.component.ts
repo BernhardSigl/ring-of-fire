@@ -26,28 +26,21 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class GameComponent {
-  // pickCardAnimation = false; 
   // currentCard: string = ''; werden beide verschoben damit synchron mit mitspieler
   game!: Game;
   normalGame: Game[] = [];
   gameId!: string;
 
-  // unsubGamesRef;
-
   firestore: Firestore = inject(Firestore);
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog, private location: Location) {
-    // this.unsubGamesRef() = this.subGamesRef();
-  }
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, private location: Location) { }
 
   // #1
   ngOnInit(): void {
     this.newGame();
     this.route.params.subscribe((params) => {
       this.gameId = params['id'];
-      // console.log('params.id', this.gameId);
       this.subGamesRef();
-      // this.getSingleDocRef(this.gameId);
     })
   }
 
