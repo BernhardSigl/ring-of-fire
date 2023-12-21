@@ -17,10 +17,14 @@
 
             <!-- current card with animation -->
             <img *ngIf="game.pickCardAnimation" class="pickCard" src="./assets/img/cards/{{ game.currentCard }}.png">
-
         </div>
     </div>
 </section>
+
+<div class="inviteLink" (click)="copyToClipboard()" id="inviteLinkId">
+    <img src="./assets/img/copy.png">
+    <span class="linkText">Invite friend</span>
+</div>
 
 <div class="btnContainter" *ngIf="game.players.length < 5">
     <button mat-fab color="primary" class="btnAdd" (click)="openDialog()">

@@ -96,6 +96,36 @@ app-player {
     }
 }
 
+.inviteLink {
+    position: absolute;
+    top: 16px;
+    background: white;
+    right: 16px;
+    width: 110px;
+    height: auto;
+    box-sizing: border-box;
+    padding: 6px;
+    border-radius: 3px;
+    border: 1px solid black;
+    cursor: pointer;
+    @include fs($fs: 14px);
+    @include middle();
+    gap: 4px;
+
+    .linkText {
+        margin-bottom: -3px;
+    }
+
+    img {
+        width: auto;
+        height: 16px;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
 @media(max-height: 1000px) or (max-width: 1000px) {
     .playableArea {
         margin: 108px 50px 70px 0;

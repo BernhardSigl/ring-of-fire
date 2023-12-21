@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common'
+import { CommonModule, Location } from '@angular/common'
 import { Game } from './../../models/game';
 import { PlayerComponent } from './../player/player.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,9 +32,13 @@ export class GameComponent {
   normalGame: Game[] = [];
   gameId!: string;
 
+  // unsubGamesRef;
+
   firestore: Firestore = inject(Firestore);
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, private location: Location) {
+    // this.unsubGamesRef() = this.subGamesRef();
+  }
 
   // #1
   ngOnInit(): void {
@@ -96,6 +100,7 @@ export class GameComponent {
   }
 
   ngOnDestroy() {
+    // this.unsubGamesRef();
   }
 
   takeCard() {
@@ -125,4 +130,33 @@ export class GameComponent {
       }
     });
   }
+
+  copyToClipboard() {
+    const currentUrl = window.location.href;
+    const dummyElement = document.createElement('textarea');
+    document.body.appendChild(dummyElement);
+    dummyElement.value = currentUrl;
+    dummyElement.select();
+    try {
+      document.execCommand('copy');
+      console.log('URL wurde in die Zwischenablage kopiert');
+      const inviteLinkElement = document.getElementById('inviteLinkId');
+      if (inviteLinkElement) {
+        const linkTextElement = inviteLinkElement.querySelector('.linkText');
+        if (linkTextElement) {
+          linkTextElement.classList.add('linkTextCopied');
+          linkTextElement.textContent = 'Link copied';
+          setTimeout(() => {
+            linkTextElement.classList.remove('linkTextCopied');
+            linkTextElement.textContent = 'Invite friend';
+          }, 2000);
+        }
+      }
+    } catch (err) {
+      console.error('Fehler beim Kopieren in die Zwischenablage', err);
+    } finally {
+      document.body.removeChild(dummyElement);
+    }
+  }
+
 }
