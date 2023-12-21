@@ -45,9 +45,9 @@ export class GameComponent {
     this.newGame();
     this.route.params.subscribe((params) => {
       this.gameId = params['id'];
-      console.log('params.id', this.gameId);
+      // console.log('params.id', this.gameId);
       this.subGamesRef();
-      this.getSingleDocRef(this.gameId);
+      // this.getSingleDocRef(this.gameId);
     })
   }
 
@@ -66,18 +66,16 @@ export class GameComponent {
   // #4
   // änderungen von fs auf website übertragen
   async subGamesRef() {
-    const q = query(this.getGamesRef());
-    return onSnapshot(q, (querySnapshot) => {
-      querySnapshot.forEach(element => {
-        console.log('game update', element.data());
-        // console.log(element.id);
-        this.game.currentPlayer = element.data()['currentPlayer'];
-        this.game.playedCards = element.data()['playedCards'];
-        this.game.players = element.data()['players'];
-        this.game.stack = element.data()['stack'];
-        this.game.pickCardAnimation = element.data()['pickCardAnimation'];
-        this.game.currentCard = element.data()['currentCard'];
-      });
+    const q = this.getSingleDocRef(this.gameId);
+    return onSnapshot(q, (element) => {
+      let gameData = element.data();
+      // console.log('game update', gameData);
+      this.game.currentPlayer = gameData!['currentPlayer'];
+      this.game.playedCards = gameData!['playedCards'];
+      this.game.players = gameData!['players'];
+      this.game.stack = gameData!['stack'];
+      this.game.pickCardAnimation = gameData!['pickCardAnimation'];
+      this.game.currentCard = gameData!['currentCard'];
     });
   }
 
@@ -139,7 +137,7 @@ export class GameComponent {
     dummyElement.select();
     try {
       document.execCommand('copy');
-      console.log('URL wurde in die Zwischenablage kopiert');
+      // console.log('URL wurde in die Zwischenablage kopiert');
       const inviteLinkElement = document.getElementById('inviteLinkId');
       if (inviteLinkElement) {
         const linkTextElement = inviteLinkElement.querySelector('.linkText');
