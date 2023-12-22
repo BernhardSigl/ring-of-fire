@@ -1,0 +1,15 @@
+.profilePicture {
+    width: 75px;
+    height: auto;
+    cursor: pointer;
+    margin: 12px;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.editPlayerBox {
+    width: auto;
+    height: auto;
+}

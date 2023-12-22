@@ -2,7 +2,6 @@
 
 section {
     @include monitorSize();
-
     background-image: url('./../../assets/img/wood.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -80,12 +79,17 @@ app-player {
     box-shadow: 0 0 7px 0px silver;
     background-image: url('./../../assets/img/playerBackground.jpg');
     background-size: cover;
+    cursor: pointer;
     @include start();
 
     .btnAdd {
         margin-left: 36px !important;
         margin-right: 45px !important;
         background-color: black !important;
+
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 
     span {
@@ -93,6 +97,7 @@ app-player {
         @include fs($fs: 24px);
         height: 40px;
         @include middle();
+        cursor: pointer;
     }
 }
 
@@ -124,6 +129,14 @@ app-player {
     &:hover {
         transform: scale(1.05);
     }
+}
+
+.gameOver img,
+.gameOver {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    overflow: hidden;
 }
 
 @media(max-height: 1000px) or (max-width: 1000px) {
@@ -167,9 +180,11 @@ app-player {
 
     .cardStack {
         img {
-            width: 90px;
+            width: 80px;
         }
     }
 
-
+    .inviteLink {
+        z-index: 1;
+    }
 }

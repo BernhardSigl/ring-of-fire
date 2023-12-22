@@ -5,6 +5,7 @@ mat-card {
     bottom: 32px;
     left: 100px;
     right: 100px;
+    z-index: 1;
 
     mat-card-title {
         padding: 16px 16px 0;
@@ -18,9 +19,9 @@ mat-card {
 
 @media(max-height: 1000px) or (max-width: 1000px) {
     mat-card {
-        bottom: 40px;
+        bottom: 10px;
         left: 15px;
-        right: 25px;
+        right: 15px;
 
         mat-card-title {
             padding: 8px 8px 0;

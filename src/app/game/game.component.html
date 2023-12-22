@@ -1,9 +1,15 @@
 <!-- players -->
-<app-player [ngStyle]="{'--i': i}" *ngFor="let player of game.players; let i = index" [name]="player" [i]="i"
-    [playerActive]="i == game.currentPlayer">
-</app-player>
+<div *ngIf="!gameOver">
+    <app-player (click)="editPlayer(i)" [ngStyle]="{'--i': i}" *ngFor="let player of game.players; let i = index"
+        [name]="player" [playerActive]="i == game.currentPlayer" [image]="game.playerImages[i]">
+    </app-player>
+</div>
 
-<section>
+<div *ngIf="gameOver" class="gameOver">
+    <img src="./../../assets/img/gameover.png">
+</div>
+
+<section *ngIf="!gameOver">
     <div class="playableArea">
         <div class="cardStack">
             <!-- card stack -->
@@ -21,16 +27,20 @@
     </div>
 </section>
 
-<div class="inviteLink" (click)="copyToClipboard()" id="inviteLinkId">
+<div *ngIf="!gameOver" class="inviteLink" (click)="copyToClipboard()" id="inviteLinkId">
     <img src="./assets/img/copy.png">
     <span class="linkText">Invite friend</span>
 </div>
 
-<div class="btnContainter" *ngIf="game.players.length < 5">
-    <button mat-fab color="primary" class="btnAdd" (click)="openDialog()">
-        <mat-icon>add</mat-icon>
-    </button>
-    <span>Add player</span>
+<div *ngIf="!gameOver">
+    <div class="btnContainter" (click)="openDialog()" *ngIf="game.players.length < 5">
+        <button mat-fab color="primary" class="btnAdd">
+            <mat-icon>add</mat-icon>
+        </button>
+        <span>Add player</span>
+    </div>
 </div>
 
-<app-game-info [card]="game.currentCard" *ngIf="game.currentCard !== ''"></app-game-info>
+<div *ngIf="!gameOver">
+    <app-game-info [card]="game.currentCard" *ngIf="game.currentCard !== ''"></app-game-info>
+</div>

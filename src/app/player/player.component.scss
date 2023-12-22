@@ -7,6 +7,7 @@ section {
     box-shadow: 0 0 7px 0px silver;
     background-image: url('./../../assets/img/playerBackground.jpg');
     background-size: cover;
+    cursor: pointer;
     @include horicontal();
 
     .player {
@@ -36,6 +37,7 @@ section {
         @include fs($fs: 24px);
         height: 40px;
         text-transform: capitalize;
+        cursor: pointer;
     }
 }
 
@@ -43,8 +45,8 @@ section {
     box-shadow: 0 0 8px 2px red;
 
     img {
-        height: 170px !important;
-        margin-bottom: 75px !important;
+        height: 170px;
+        margin-bottom: 75px;
         z-index: 1 !important;
         animation: wiggle 1s ease-in-out;
     }
@@ -105,14 +107,14 @@ section {
         height: 34px !important;
         border-radius: 0 17px 17px 0 !important;
 
-        .player[_ngcontent-ng-c1737856312] {
+        .player {
             margin-bottom: 0 !important;
             margin-left: -26px;
             gap: 5px;
 
             img {
-                height: 60px !important;
-                margin-bottom: 32px !important;
+                height: 55px !important;
+                margin-bottom: 22px !important;
             }
 
             span {

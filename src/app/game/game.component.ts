@@ -10,6 +10,7 @@ import { GameInfoComponent } from './../game-info/game-info.component';
 import { Firestore, collection, addDoc, onSnapshot, query, getDocs, doc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
 @Component({
   selector: 'app-game',
@@ -30,6 +31,7 @@ export class GameComponent {
   game!: Game;
   normalGame: Game[] = [];
   gameId!: string;
+  gameOver = false;
 
   firestore: Firestore = inject(Firestore);
 
@@ -66,6 +68,7 @@ export class GameComponent {
       this.game.currentPlayer = gameData!['currentPlayer'];
       this.game.playedCards = gameData!['playedCards'];
       this.game.players = gameData!['players'];
+      this.game.playerImages = gameData!['playerImages'];
       this.game.stack = gameData!['stack'];
       this.game.pickCardAnimation = gameData!['pickCardAnimation'];
       this.game.currentCard = gameData!['currentCard'];
@@ -95,7 +98,10 @@ export class GameComponent {
   }
 
   takeCard() {
-    if (this.game.players.length == 0) {
+    if (this.game.stack.length == 0) {
+      this.gameOver = true;
+      console.log('aus');
+    } else if (this.game.players.length == 0) {
       this.openDialog();
     } else if (!this.game.pickCardAnimation) {
       this.game.currentCard = this.game.stack.pop()!;
@@ -113,11 +119,12 @@ export class GameComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
-
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
+        this.game.playerImages.push('avatar0.png');
         this.saveGame();
+        this.editPlayer(this.game.players.length - 1);
       }
     });
   }
@@ -150,4 +157,18 @@ export class GameComponent {
     }
   }
 
+  editPlayer(playerId: number) {
+    const dialogRef = this.dialog.open(EditPlayerComponent);
+    dialogRef.afterClosed().subscribe((change: string) => {
+      if (change) {
+        if (change == 'DELETE') {
+          this.game.players.splice(playerId, 1);
+          this.game.playerImages.splice(playerId, 1);
+        } else {
+          this.game.playerImages[playerId] = change;
+        }
+        this.saveGame();
+      }
+    });
+  }
 }
