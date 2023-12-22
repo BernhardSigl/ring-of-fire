@@ -1,6 +1,13 @@
 {
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
   "hosting": {
-    "source": ".",
+    "public": "dist/ring-of-fire/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
